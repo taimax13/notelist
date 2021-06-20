@@ -6,11 +6,20 @@ import {RiCloseCircleLine} from 'react-icons/ri'
 import {TiEdit} from 'react-icons/ti'
 
 
-function Note({notes, completeNote}) {
+function Note({notes, completeNote, removeNote, updateNote}) {
     const [edit, setEdit]=useState({
         id:null,
         value: ''
     })
+
+    const submitUpdate = value => {
+        updateNote(edit.id, value)
+        setEdit({
+            id:null,
+            value:''
+        })
+    }
+    if(edit.id){return <NoteForm edit={edit} onSubmit={submitUpdate}/>}
 
 
     return notes.map((note,index)=>(
@@ -26,7 +35,7 @@ function Note({notes, completeNote}) {
             className='delete-icon' />
             </div>    
         </div>
-    ))
+    ));
 }
 
 export default Note
